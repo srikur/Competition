@@ -359,4 +359,914 @@ namespace Srikur {
 
 }
 
-class Competition : Srikur::ThreeDBoard : Sidharth::
+namespace Sidharth
+{
+
+	class TicTacToeBoard {
+	private:
+		char board[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
+		int count = 0;
+		int move;
+
+
+	public:
+
+		void printBoard() {
+			cout << "   0   1   2" << endl;
+			cout << "   -   -   -" << endl;
+			cout << "0: " << board[0][0] << " | " << board[0][1] << " | " << board[0][2] << endl;
+			cout << "  -----------" << endl;
+			cout << "1: " << board[1][0] << " | " << board[1][1] << " | " << board[1][2] << endl;
+			cout << "  -----------" << endl;
+			cout << "2: " << board[2][0] << " | " << board[2][1] << " | " << board[2][2] << endl;
+		};
+
+		string firstMove() {
+			move = rand() % 2;
+			if (move == 0) {
+				return "The computer gets to move first. You have \"X\"s"; //First move ALWAYS uses O, second move ALWAYS uses X
+			}
+			else {
+				return "You get to move first. You have \"O\"s ";
+			}
+		}
+
+		bool playerMove(int x, int y) {
+			if (x > 2 || x < 0 || y > 2 || y < 0) {
+				cout << "Invalid input" << endl;
+				return true;
+			}
+
+			if (board[x][y] != ' ') {
+				cout << "Space is occupied" << endl;
+				return true;
+			}
+			else {
+				if (move == 0) {
+					board[x][y] = 'X';
+				}
+				else {
+					board[x][y] = 'O';
+				}
+				count++;
+				return false;
+			}
+
+		}
+
+		int computerMove() {
+			int x;
+			int y;
+			do {
+				x = rand() % 3;
+				y = rand() % 3;
+			} while (board[x][y] != ' ');
+
+			if (move == 0) {
+				board[x][y] = 'O';
+			}
+			else {
+				board[x][y] = 'X';
+			}
+			count++;
+			return 3 * x + y;
+
+		}
+
+		int getCount() {
+			return count;
+		}
+
+		int getMove() {
+			return move;
+		}
+
+		void setMove(int m) {
+			move = m;
+		}
+
+		bool gameComplete() {
+			if (count < 5) {
+				return false;
+			}
+			char comp;
+			int turn = count % 2;
+			if (turn == 1) {
+				comp = 'O';
+			}
+			else {
+				comp = 'X';
+			}
+
+			if ((board[0][0] == comp && board[0][1] == comp && board[0][2] == comp) || (board[1][0] == comp && board[1][1] == comp && board[1][2] == comp) || (board[2][0] == comp && board[2][1] == comp && board[2][2] == comp) || (board[0][0] == comp && board[1][0] == comp && board[2][0] == comp) || (board[0][1] == comp && board[1][1] == comp && board[2][1] == comp) || (board[0][2] == comp && board[1][2] == comp && board[2][2] == comp) || (board[0][0] == comp && board[1][1] == comp && board[2][2] == comp) || (board[0][2] == comp && board[1][1] == comp && board[2][0] == comp)) {
+				if ((move == 1 && turn == 0) || move == 0 && turn == 1) {
+					cout << "Computer Wins!" << endl;
+				}
+				else {
+					cout << "Player Wins!" << endl;
+				}
+				return true;
+			}
+			if (count == 9) {
+				cout << "It's a tie." << endl;
+				return true;
+			}
+			return false;
+
+		}
+
+
+	};
+
+	/*----------------------------------------------------------------------------------------------------------------------------------------------------
+	-------------------------------------------------------------------------------------------------------------------------------------------------------
+	-----------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+	class TicTacToeBoard3D : public TicTacToeBoard
+	{
+	private:
+		int actualBoard[3][3][3] = { {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} };
+
+		TicTacToeBoard b1;
+		TicTacToeBoard b2;
+		TicTacToeBoard b3;
+		int moveCount = 0;
+		int playerCount = 0;
+		int computerCount = 0;
+
+
+
+	public:
+		int getMoveCount() {
+			return moveCount;
+		}
+
+		void printBoard()
+		{
+			cout << "    Board 1 " << endl;
+			cout << "   _________\n" << endl;
+			b1.printBoard();
+			cout << "\n    Board 2 " << endl;
+			cout << "   _________\n" << endl;
+			b2.printBoard();
+			cout << "\n    Board 3 " << endl;
+			cout << "   _________\n" << endl;
+			b3.printBoard();
+			cout << endl;
+		}
+
+		bool playerMove(int boardNum, int x, int y)
+		{
+			if (boardNum == 1)
+			{
+				if (b1.playerMove(x, y))
+				{
+					return true;
+				}
+				actualBoard[boardNum - 1][x][y] = 1;
+				moveCount += 1;
+
+				return false;
+			}
+			else if (boardNum == 2)
+			{
+				if (b2.playerMove(x, y))
+				{
+					return true;
+				}
+				actualBoard[boardNum - 1][x][y] = 1;
+				moveCount += 1;
+				return false;
+			}
+
+			else if (boardNum == 3)
+			{
+				if (b3.playerMove(x, y))
+				{
+					return true;
+				}
+				actualBoard[boardNum - 1][x][y] = 1;
+				moveCount += 1;
+				return false;
+			}
+
+			cout << "Invalid Board Choice" << endl;
+			return true;
+
+		}
+
+		void moveInitialize() {
+			b1.setMove((getMove()));
+			b2.setMove((getMove()));
+			b3.setMove((getMove()));
+		}
+
+		int getTMove() {
+
+			return getMove();
+		}
+
+		void computerMove()
+		{
+			int coordinates, x, y, bnum;
+			while (true)
+			{
+
+				bnum = rand() % 3;
+				if (bnum == 0)
+				{
+					if (b1.getCount() == 9)
+					{
+						continue;
+					}
+
+					else
+					{
+						coordinates = b1.computerMove();
+						moveCount += 1;
+
+
+						break;
+					}
+				}
+				if (bnum == 1)
+				{
+					if (b2.getCount() == 9)
+					{
+						continue;
+					}
+
+					else
+					{
+						coordinates = b2.computerMove();
+						moveCount += 1;
+						break;
+					}
+				}
+				if (bnum == 2)
+				{
+					if (b3.getCount() == 9)
+					{
+						continue;
+					}
+
+					else
+					{
+						coordinates = b3.computerMove();
+						moveCount += 1;
+						break;
+					}
+				}
+			}
+			y = coordinates % 3;
+			x = (int)(coordinates - y) / 3;
+			actualBoard[bnum][x][y] = -1;
+		}
+
+		void printActual()
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					for (int k = 0; k < 3; k++)
+					{
+						cout << actualBoard[i][j][k];
+					}
+					cout << endl;
+				}
+			}
+		}
+
+		void gameComplete()
+		{
+			//base class gameComplete() method returned a boolean, and we need a count, so I'm just completely overhauling the method.
+
+			if (abs(actualBoard[0][0][0] + actualBoard[0][0][1] + actualBoard[0][0][2]) == 3)
+			{
+
+				if (actualBoard[0][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][1][0] + actualBoard[0][1][1] + actualBoard[0][1][2]) == 3)
+			{
+
+				if (actualBoard[0][1][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][0] + actualBoard[0][2][1] + actualBoard[0][2][2]) == 3)
+			{
+
+				if (actualBoard[0][2][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][0] + actualBoard[0][1][0] + actualBoard[0][2][0]) == 3)
+			{
+
+				if (actualBoard[0][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][1] + actualBoard[0][1][1] + actualBoard[0][2][1]) == 3)
+			{
+
+				if (actualBoard[0][0][1] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][2] + actualBoard[0][1][2] + actualBoard[0][2][2]) == 3)
+			{
+
+				if (actualBoard[0][0][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][0] + actualBoard[0][1][1] + actualBoard[0][2][2]) == 3)
+			{
+
+				if (actualBoard[0][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][2] + actualBoard[0][1][1] + actualBoard[0][2][0]) == 3)
+			{
+
+				if (actualBoard[0][0][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+
+			//board 2 only:
+
+			if (abs(actualBoard[1][0][0] + actualBoard[1][0][1] + actualBoard[1][0][2]) == 3)
+			{
+
+				if (actualBoard[1][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[1][1][0] + actualBoard[1][1][1] + actualBoard[1][1][2]) == 3)
+			{
+
+				if (actualBoard[1][1][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[1][2][0] + actualBoard[1][2][1] + actualBoard[1][2][2]) == 3)
+			{
+
+				if (actualBoard[1][2][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[1][0][0] + actualBoard[1][1][0] + actualBoard[1][2][0]) == 3)
+			{
+
+				if (actualBoard[1][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[1][0][1] + actualBoard[1][1][1] + actualBoard[1][2][1]) == 3)
+			{
+
+				if (actualBoard[1][0][1] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[1][0][2] + actualBoard[1][1][2] + actualBoard[1][2][2]) == 3)
+			{
+
+				if (actualBoard[1][0][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[1][0][0] + actualBoard[1][1][1] + actualBoard[1][2][2]) == 3)
+			{
+
+				if (actualBoard[1][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[1][0][2] + actualBoard[1][1][1] + actualBoard[1][2][0]) == 3)
+			{
+
+				if (actualBoard[1][0][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+
+			//board 3 only:
+
+			if (abs(actualBoard[2][0][0] + actualBoard[2][0][1] + actualBoard[2][0][2]) == 3)
+			{
+
+				if (actualBoard[2][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[2][1][0] + actualBoard[2][1][1] + actualBoard[2][1][2]) == 3)
+			{
+
+				if (actualBoard[2][1][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[2][2][0] + actualBoard[2][2][1] + actualBoard[2][2][2]) == 3)
+			{
+
+				if (actualBoard[2][2][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[2][0][0] + actualBoard[2][1][0] + actualBoard[2][2][0]) == 3)
+			{
+
+				if (actualBoard[2][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[2][0][1] + actualBoard[2][1][1] + actualBoard[2][2][1]) == 3)
+			{
+
+				if (actualBoard[2][0][1] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[2][0][2] + actualBoard[2][1][2] + actualBoard[2][2][2]) == 3)
+			{
+
+				if (actualBoard[2][0][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[2][0][0] + actualBoard[2][1][1] + actualBoard[2][2][2]) == 3)
+			{
+
+				if (actualBoard[2][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[2][0][2] + actualBoard[2][1][1] + actualBoard[2][2][0]) == 3)
+			{
+
+				if (actualBoard[2][0][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+
+			//Between boards:
+
+			//Vertical 3 in a row:
+			if (abs(actualBoard[0][0][0] + actualBoard[1][0][0] + actualBoard[2][0][0]) == 3)
+			{
+
+				if (actualBoard[0][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][1] + actualBoard[1][0][1] + actualBoard[2][0][1]) == 3)
+			{
+
+				if (actualBoard[0][0][1] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][2] + actualBoard[1][0][2] + actualBoard[2][0][2]) == 3)
+			{
+
+				if (actualBoard[0][0][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][1][0] + actualBoard[1][1][0] + actualBoard[2][1][0]) == 3)
+			{
+
+				if (actualBoard[0][1][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][1][1] + actualBoard[1][1][1] + actualBoard[2][1][1]) == 3)
+			{
+
+				if (actualBoard[0][1][1] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][1][2] + actualBoard[1][1][2] + actualBoard[2][1][2]) == 3)
+			{
+
+				if (actualBoard[0][1][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][0] + actualBoard[1][2][0] + actualBoard[2][2][0]) == 3)
+			{
+
+				if (actualBoard[0][2][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][1] + actualBoard[1][2][1] + actualBoard[2][2][1]) == 3)
+			{
+
+				if (actualBoard[0][2][1] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][2] + actualBoard[1][2][2] + actualBoard[2][2][2]) == 3)
+			{
+
+				if (actualBoard[0][2][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+
+
+			//Diagonals:
+
+			if (abs(actualBoard[0][0][0] + actualBoard[1][1][0] + actualBoard[2][2][0]) == 3)
+			{
+
+				if (actualBoard[0][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][1] + actualBoard[1][1][1] + actualBoard[2][2][1]) == 3)
+			{
+
+				if (actualBoard[0][0][1] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][2] + actualBoard[1][1][2] + actualBoard[2][2][2]) == 3)
+			{
+
+				if (actualBoard[0][0][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][0] + actualBoard[1][1][0] + actualBoard[2][0][0]) == 3)
+			{
+
+				if (actualBoard[0][2][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][1] + actualBoard[1][1][1] + actualBoard[2][0][1]) == 3)
+			{
+
+				if (actualBoard[0][2][1] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][2] + actualBoard[1][1][2] + actualBoard[2][0][2]) == 3)
+			{
+
+				if (actualBoard[0][2][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][0] + actualBoard[1][0][1] + actualBoard[2][0][2]) == 3)
+			{
+
+				if (actualBoard[0][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][1][0] + actualBoard[1][1][1] + actualBoard[2][1][2]) == 3)
+			{
+
+				if (actualBoard[0][1][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][0] + actualBoard[1][2][1] + actualBoard[2][2][2]) == 3)
+			{
+
+				if (actualBoard[0][2][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][2] + actualBoard[1][0][1] + actualBoard[2][0][0]) == 3)
+			{
+
+				if (actualBoard[0][0][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][1][2] + actualBoard[1][1][1] + actualBoard[2][1][0]) == 3)
+			{
+
+				if (actualBoard[0][1][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][2] + actualBoard[1][2][1] + actualBoard[2][2][0]) == 3)
+			{
+
+				if (actualBoard[0][2][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+
+			//4 diagonals from corner to corner:
+
+			if (abs(actualBoard[0][0][0] + actualBoard[1][1][1] + actualBoard[2][2][2]) == 3)
+			{
+
+				if (actualBoard[0][0][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][0][2] + actualBoard[1][1][1] + actualBoard[2][2][0]) == 3)
+			{
+
+				if (actualBoard[0][0][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][0] + actualBoard[1][1][1] + actualBoard[2][0][2]) == 3)
+			{
+
+				if (actualBoard[0][2][0] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+			if (abs(actualBoard[0][2][2] + actualBoard[1][1][1] + actualBoard[2][0][0]) == 3)
+			{
+
+				if (actualBoard[0][2][2] == 1)
+				{
+					playerCount++;
+				}
+				else
+				{
+					computerCount++;
+				}
+			}
+
+
+			cout << "The player got " << playerCount << " 3-in-a-rows, and the computer got " << computerCount << " 3-in-a-rows." << endl;
+			if (playerCount > computerCount)
+			{
+				cout << "Player Wins!";
+			}
+			else if (playerCount < computerCount)
+			{
+				cout << "Computer Wins!";
+			}
+			else
+			{
+				cout << "It's a tie!";
+			}
+
+		}
+
+	};
+
+
+class Competition : Srikur::ThreeDBoard : Sidharth::id
