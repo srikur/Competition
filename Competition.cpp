@@ -48,6 +48,7 @@ namespace Srikur {
 		void checkWinner();
 
 		void computerMove();
+		void printCompetitionBoard();
 	};
 
 	class ThreeDBoard : public Board {
@@ -60,6 +61,77 @@ namespace Srikur {
 
 	ThreeDBoard board;
 	int playerMove, computerMove, playerWins, computerWins;
+	ThreeDBoard competitionBoard;
+
+	void setupBoard() {
+
+		competitionBoard.spaces[0].value = "1";
+		competitionBoard.spaces[1].value = "2";
+		competitionBoard.spaces[2].value = "3";
+		competitionBoard.spaces[3].value = "4";
+		competitionBoard.spaces[4].value = "5";
+		competitionBoard.spaces[5].value = "6";
+		competitionBoard.spaces[6].value = "7";
+		competitionBoard.spaces[7].value = "8";
+		competitionBoard.spaces[8].value = "9";
+		competitionBoard.spaces[9].value = "10";
+		competitionBoard.spaces[10].value = "11";
+		competitionBoard.spaces[11].value = "12";
+		competitionBoard.spaces[12].value = "13";
+		competitionBoard.spaces[13].value = "14";
+		competitionBoard.spaces[14].value = "15";
+		competitionBoard.spaces[15].value = "16";
+		competitionBoard.spaces[16].value = "17";
+		competitionBoard.spaces[17].value = "18";
+		competitionBoard.spaces[18].value = "19";
+		competitionBoard.spaces[19].value = "20";
+		competitionBoard.spaces[20].value = "21";
+		competitionBoard.spaces[21].value = "22";
+		competitionBoard.spaces[22].value = "23";
+		competitionBoard.spaces[23].value = "24";
+		competitionBoard.spaces[24].value = "25";
+		competitionBoard.spaces[25].value = "26";
+		competitionBoard.spaces[26].value = "27";
+	}
+
+	void Board::computerMove() {
+
+		srand(time(NULL));
+
+		do {
+			compMove = (rand() % 27) + 1;
+		} while (!competitionBoard.avaliable(competitionBoard.spaces[compMove - 1]));
+
+		compPoint = &competitionBoard.spaces[compMove - 1];
+		cout << "\nThe computer chose space " << compMove << "\n";
+		competitionBoard.fillSlot(compPoint, 2);
+
+		competitionBoard.printBoard();
+	}
+
+	void Board::printCompetitionBoard() {
+		//first pane
+		cout << "\n " << competitionBoard.spaces[0].value << " | " << competitionBoard.spaces[1].value << " | " << competitionBoard.spaces[2].value;
+		cout << "\n-----------";
+		cout << "\n " << competitionBoard.spaces[3].value << " | " << competitionBoard.spaces[4].value << " | " << competitionBoard.spaces[5].value;
+		cout << "\n-----------";
+		cout << "\n " << competitionBoard.spaces[6].value << " | " << competitionBoard.spaces[7].value << " | " << competitionBoard.spaces[8].value << "\n";
+
+		//second pane
+		cout << "\n           " << competitionBoard.spaces[9].value << " | " << competitionBoard.spaces[10].value << " | " << competitionBoard.spaces[11].value;
+		cout << "\n           ------------";
+		cout << "\n           " << competitionBoard.spaces[12].value << " | " << competitionBoard.spaces[13].value << " | " << competitionBoard.spaces[14].value;
+		cout << "\n           ------------";
+		cout << "\n           " << competitionBoard.spaces[15].value << " | " << competitionBoard.spaces[16].value << " | " << competitionBoard.spaces[17].value << "\n";
+
+		//third pane
+		cout << "\n                        " << competitionBoard.spaces[18].value << " | " << competitionBoard.spaces[19].value << " | " << competitionBoard.spaces[20].value;
+		cout << "\n                        ------------";
+		cout << "\n                        " << competitionBoard.spaces[21].value << " | " << competitionBoard.spaces[22].value << " | " << competitionBoard.spaces[23].value;
+		cout << "\n                        ------------";
+		cout << "\n                        " << competitionBoard.spaces[24].value << " | " << competitionBoard.spaces[25].value << " | " << competitionBoard.spaces[26].value << "\n";
+
+	}
 
 	int main() {
 
@@ -323,21 +395,6 @@ namespace Srikur {
 
 	Slot* compPoint, * playPoint;
 	int compMove, playMove;
-
-	void Board::computerMove() {
-
-		srand(time(NULL));
-
-		do {
-			compMove = (rand() % 27) + 1;
-		} while (!board.avaliable(board.spaces[compMove - 1]));
-
-		compPoint = &board.spaces[compMove - 1];
-		cout << "\nThe computer chose space " << compMove << "\n";
-		board.fillSlot(compPoint, 2);
-
-		board.printBoard();
-	}
 
 	bool Board::checkEnd() {
 
@@ -1268,5 +1325,36 @@ namespace Sidharth
 
 	};
 
+}
 
-class Competition : Srikur::ThreeDBoard : Sidharth::id
+#define srikur 0
+#define sidharth 1
+
+class Competition : Srikur::ThreeDBoard, Sidharth::TicTacToeBoard3D{
+public:
+
+	const int NUM_GAMES = 10;
+	bool turn = srikur;
+	int games;
+
+	void playGame() {
+		printf("This program will play 10 games of 3D Tic-Tac-Toe between Srikur Kanuparthy and Sidharth Sundar\n");
+		srand(time(NULL));
+		int first = rand() % 2;
+		if (first) {
+			//Sidharth moves first since the value is zero
+			turn = sidharth;
+		}
+		
+		while (games <= 10) {
+			if (turn == srikur)
+				Srikur::ThreeDBoard::computerMove();
+
+		}
+	}
+
+	void printBoard() {
+		if 
+	}
+	
+};
