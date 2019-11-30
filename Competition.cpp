@@ -47,7 +47,7 @@ namespace Srikur {
 		void printBoard();
 		void checkWinner();
 
-		void computerMove();
+		int computerMove();
 		void printCompetitionBoard();
 	};
 
@@ -94,7 +94,7 @@ namespace Srikur {
 		competitionBoard.spaces[26].value = "27";
 	}
 
-	void Board::computerMove() {
+	int Board::computerMove() {
 
 		srand(time(NULL));
 
@@ -107,6 +107,8 @@ namespace Srikur {
 		competitionBoard.fillSlot(compPoint, 2);
 
 		competitionBoard.printBoard();
+
+		return compMove;
 	}
 
 	void Board::printCompetitionBoard() {
@@ -1330,7 +1332,9 @@ namespace Sidharth
 #define srikur 0
 #define sidharth 1
 
-class Competition : Srikur::ThreeDBoard, Sidharth::TicTacToeBoard3D{
+int srikurReturn;
+
+class Competition : Srikur::ThreeDBoard, Sidharth::TicTacToeBoard3D {
 public:
 
 	const int NUM_GAMES = 10;
@@ -1345,16 +1349,28 @@ public:
 			//Sidharth moves first since the value is zero
 			turn = sidharth;
 		}
-		
-		while (games <= 10) {
-			if (turn == srikur)
-				Srikur::ThreeDBoard::computerMove();
 
+		while (games <= 10) {
+			if (turn == srikur) {
+				srikurReturn = Srikur::ThreeDBoard::computerMove();
+				convertSrikurToSidharth(srikurReturn);
+			}
+			if (turn == sidharth)
+				Sidharth::TicTacToeBoard3D::computerMove();
+			turn = !turn;
 		}
 	}
 
-	void printBoard() {
-		if 
+	void convertSrikurToSidharth(int value) {
+
 	}
-	
+
+	void convertSidharthToSrikur() {
+
+	}
+
+	void printBoard() {
+
+	}
+
 };
