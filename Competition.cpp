@@ -106,7 +106,7 @@ namespace Srikur {
 		cout << "\nThe computer chose space " << compMove << "\n";
 		competitionBoard.fillSlot(compPoint, 2);
 
-		competitionBoard.printBoard();
+		competitionBoard.printCompetitionBoard();
 
 		return compMove;
 	}
@@ -1333,7 +1333,7 @@ namespace Sidharth
 #define srikur 0
 #define sidharth 1
 
-int srikurReturn;
+int srikurReturn, sidReturn, compGame;
 
 class Competition : Srikur::ThreeDBoard, Sidharth::TicTacToeBoard3D {
 public:
@@ -1346,9 +1346,11 @@ public:
 		printf("This program will play 10 games of 3D Tic-Tac-Toe between Srikur Kanuparthy and Sidharth Sundar\n");
 		srand(time(NULL));
 		int first = rand() % 2;
+		compGame = 1;
 		if (first) {
 			//Sidharth moves first since the value is zero
 			turn = sidharth;
+			compGame = 2;
 		}
 
 		while (games <= 10) {
@@ -1356,8 +1358,14 @@ public:
 				srikurReturn = Srikur::ThreeDBoard::computerMove();
 				convertSrikurToSidharth(srikurReturn);
 			}
-			if (turn == sidharth)
-				Sidharth::TicTacToeBoard3D::computerMove();
+			if (turn == sidharth) {
+				sidReturn = Sidharth::TicTacToeBoard3D::computerMove();
+				convertSidharthToSrikur(sidReturn);
+			}
+
+			// Check end using both the boards
+			
+
 			turn = !turn;
 		}
 	}
@@ -1366,12 +1374,8 @@ public:
 
 	}
 
-	void convertSidharthToSrikur() {
-
-	}
-
-	void printBoard() {
-
+	inline void convertSidharthToSrikur(int value) {
+		Srikur::competitionBoard.fillSlot(&Srikur::competitionBoard.spaces[value - 1], compGame);
 	}
 
 };
