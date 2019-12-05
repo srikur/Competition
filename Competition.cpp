@@ -426,6 +426,15 @@ namespace Sidharth
 
 	public:
 
+		void setBoard() {
+			for (int i = 0; i <= 2; i++) {
+				for (int j = 0; j <= 2; j++) {
+					board[i][j] = ' ';
+				}
+			}
+			count = 0;
+		}
+
 		void printBoard() {
 			cout << "   0   1   2" << endl;
 			cout << "   -   -   -" << endl;
@@ -571,6 +580,20 @@ namespace Sidharth
 			cout << endl;
 		}
 
+		void setBoard() {
+			b1.setBoard();
+			b2.setBoard();
+			b3.setBoard();
+			moveCount = 0;
+			for (int i = 0; i <= 2; i++) {
+				for (int j = 0; j <= 2; j++) {
+					for (int k = 0; k <= 2; k++) {
+						actualBoard[i][j][k] = 0;
+					}
+				}
+			}
+		}
+
 		bool playerMove(int boardNum, int x, int y)
 		{
 			if (boardNum == 1)
@@ -620,11 +643,6 @@ namespace Sidharth
 		int getTMove() {
 
 			return getMove();
-		}
-
-		void setBoard() {
-			actualBoard = { {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} };
-			moveCount = 0;
 		}
 
 		int computerMove()
@@ -1379,8 +1397,10 @@ public:
 				}
 				turn = !turn;
 			}
-			games++
-			turn = rand()%2
+			games++;
+			turn = rand() % 2;
+			Sidharth::TicTacToeBoard3D::setBoard();
+			Srikur::ThreeDBoard::setUp
 		}
 	}
 
