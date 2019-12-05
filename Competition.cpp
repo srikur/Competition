@@ -1355,6 +1355,7 @@ public:
 
 		while (games <= 10) {
 			if (turn == srikur) {
+				Srikur::ThreeDBoard::printCompetitionBoard();
 				srikurReturn = Srikur::ThreeDBoard::computerMove();
 				convertSrikurToSidharth(srikurReturn);
 			}
@@ -1378,7 +1379,6 @@ public:
 		value -= 3 * y;
 		int y = value;
 		playerMove(boardNumber + 1, x, y);
-		
 	}
 
 	inline void convertSidharthToSrikur(int value) {
