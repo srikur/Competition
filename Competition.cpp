@@ -1,11 +1,11 @@
 /*
-	Lab 10 CECS 130
+	Final Project CECS 130
 
 	Description: This program is a 3D Tic Tac Toe Board. This program pits two computer players representing the two
 	students against each other. The X symbol represents Srikur's CPU and the O symbol represents Sidharth's CPU.
 
-	Kanuparthy Srikur, Section 01, 11/1/19, First Semester 2019-2020 School Year
-	Sidharth Sundar, Section 02, 12/5/19, First Semester 2019-2020 School Year
+	Kanuparthy Srikur, Section 01, 12/5/19, First Semester 2019-2020 School Year
+	Sundar Sidharth, Section 02, 12/5/19, First Semester 2019-2020 School Year
 */
 
 #define srikur 0
