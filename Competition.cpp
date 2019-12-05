@@ -622,6 +622,11 @@ namespace Sidharth
 			return getMove();
 		}
 
+		void setBoard() {
+			actualBoard = { {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} };
+			moveCount = 0;
+		}
+
 		int computerMove()
 		{
 			int coordinates, x, y, bnum;
@@ -1334,7 +1339,6 @@ public:
 
 	void playGame() {
 		setMove(0);
-		Srikur::setupBoard();
 		printf("This program will play 10 games of 3D Tic-Tac-Toe between Srikur Kanuparthy and Sidharth Sundar\n");
 		srand(time(NULL));
 		int first = rand() % 2;
@@ -1351,6 +1355,7 @@ public:
 					convertSrikurToSidharth(srikurReturn);
 				}
 				if (turn == sidharth) {
+					Sidharth::TicTacToeBoard3D::printBoard();
 					sidReturn = Sidharth::TicTacToeBoard3D::computerMove();
 					convertSidharthToSrikur(sidReturn);
 				}
@@ -1374,7 +1379,8 @@ public:
 				}
 				turn = !turn;
 			}
-			games++;
+			games++
+			turn = rand()%2
 		}
 	}
 
