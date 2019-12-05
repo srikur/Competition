@@ -1314,7 +1314,7 @@ namespace Sidharth
 
 
 			if (playerCount > computerCount) {
-				return srikur
+				return srikur;
 			}
 			else if (computerCount > playerCount) {
 				return sidharth;
@@ -1362,6 +1362,9 @@ public:
 				}
 
 				// Check end using both the boards
+				if getMoveCount() == 27 {
+					bool sidGameCheck = gameComplete();
+				}
 
 
 				turn = !turn;
