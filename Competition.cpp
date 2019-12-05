@@ -1,7 +1,8 @@
 /*
 	Lab 10 CECS 130
 
-	Description: This program is a 3D Tic Tac Toe Board
+	Description: This program is a 3D Tic Tac Toe Board. This program pits two computer players representing the two
+	students against each other. The X symbol represents Srikur's CPU and the O symbol represents Sidharth's CPU.
 
 	Kanuparthy Srikur, Section 01, 11/1/19, First Semester 2019-2020 School Year
 	Sidharth Sundar, Section 02, 12/5/19, First Semester 2019-2020 School Year
@@ -36,10 +37,10 @@ namespace Srikur {
 		void fillSlot(Slot* move, int player) {
 			string character;
 			if (player == 1) {
-				character = "O";
+				character = "X";
 			}
 			else if (player == 2)
-				character = "X";
+				character = "O";
 			move->value = character;
 		}
 
@@ -109,7 +110,7 @@ namespace Srikur {
 
 		compPoint = &competitionBoard.spaces[compMove - 1];
 		cout << "\nThe computer chose space " << compMove << "\n";
-		competitionBoard.fillSlot(compPoint, 2);
+		competitionBoard.fillSlot(compPoint, 1);
 
 		return compMove;
 	}
@@ -1249,7 +1250,7 @@ public:
 
 	const int NUM_GAMES = 10;
 	bool turn = srikur;
-	int games;
+	int games = 0;
 
 	void playGame() {
 		setMove(0);
@@ -1265,7 +1266,7 @@ public:
 			printf("Srikur moves first\n\n");
 		}
 
-		while (games <= 10) {
+		while (games < 10) {
 			while (true) {
 				if (turn == srikur) {
 					Srikur::ThreeDBoard::printCompetitionBoard();
@@ -1289,6 +1290,9 @@ public:
 				}
 				else if (winner == sidharth) {
 					sidharthGames++;
+					break;
+				}
+				else if (winner == -1) {
 					break;
 				}
 
