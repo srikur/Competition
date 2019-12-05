@@ -132,110 +132,6 @@ namespace Srikur {
 
 	}
 
-	int main() {
-
-		Slot* computerPoint, * playerPoint;
-
-		//creating all of the space objects and assigning their character value
-		srand(time(NULL));
-		board.spaces[0].value = "1";
-		board.spaces[1].value = "2";
-		board.spaces[2].value = "3";
-		board.spaces[3].value = "4";
-		board.spaces[4].value = "5";
-		board.spaces[5].value = "6";
-		board.spaces[6].value = "7";
-		board.spaces[7].value = "8";
-		board.spaces[8].value = "9";
-		board.spaces[9].value = "10";
-		board.spaces[10].value = "11";
-		board.spaces[11].value = "12";
-		board.spaces[12].value = "13";
-		board.spaces[13].value = "14";
-		board.spaces[14].value = "15";
-		board.spaces[15].value = "16";
-		board.spaces[16].value = "17";
-		board.spaces[17].value = "18";
-		board.spaces[18].value = "19";
-		board.spaces[19].value = "20";
-		board.spaces[20].value = "21";
-		board.spaces[21].value = "22";
-		board.spaces[22].value = "23";
-		board.spaces[23].value = "24";
-		board.spaces[24].value = "25";
-		board.spaces[25].value = "26";
-		board.spaces[26].value = "27";
-		playerWins = 0;
-		computerWins = 0;
-
-		bool goesFirst = rand() % 2;
-
-		cout << "Let's play 3D Tic Taco Toe!";
-		board.printBoard();
-
-		if (goesFirst == 0) {
-			cout << "Computer goes first!" << endl;
-			do {
-				computerMove = (rand() % 27) + 1;
-			} while (!board.avaliable(board.spaces[computerMove - 1]));
-
-			computerPoint = &board.spaces[computerMove - 1];
-			cout << "\nThe computer chose space " << computerMove << "\n";
-			board.fillSlot(computerPoint, 2);
-
-			board.printBoard();
-
-		}
-		else {
-			cout << "You go first!";
-		}
-		//loop to continue playing the game
-		while (!board.checkEnd()) {
-
-			//loop to continue asking the player to choose a move if they pick an invalid option
-
-			do {
-				cout << "\nWhich space do you choose? ";
-				cin >> playerMove;
-			} while (!board.avaliable(board.spaces[playerMove - 1]));
-
-			//fill in the players move, reprint the board, and check for a winner
-			playerPoint = &board.spaces[playerMove - 1];
-			board.fillSlot(playerPoint, 1);
-
-			board.printBoard();
-
-			if (board.checkEnd() == true) {
-				break;
-			}
-			//Loop to have the computer pick a random space until choosing one that is available
-			do {
-				computerMove = (rand() % 27) + 1;
-			} while (!board.avaliable(board.spaces[computerMove - 1]));
-
-			cout << "\nThe computer chose space " << computerMove << "\n";
-			computerPoint = &board.spaces[computerMove - 1];
-			board.fillSlot(computerPoint, 2);
-
-
-			board.printBoard();
-
-		}
-
-		board.checkWinner();
-
-		cout << "The computer won this many times: " << computerWins << endl;
-		cout << "You won this many times: " << playerWins << endl;
-
-		if (computerWins > playerWins) {
-			cout << "You lose.";
-		}
-		else {
-			cout << "You win!";
-		}
-
-	}
-
 	//function to print out the board
 	void Board::printBoard() {
 		//first pane
@@ -1379,8 +1275,8 @@ public:
 				}
 				turn = !turn;
 			}
-			games++
-			turn = rand()%2
+			games++;
+			turn = rand() % 2;
 		}
 	}
 
@@ -1399,3 +1295,7 @@ public:
 	}
 
 };
+
+int main() {
+
+}
