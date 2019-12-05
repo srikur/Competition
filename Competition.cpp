@@ -622,6 +622,11 @@ namespace Sidharth
 			return getMove();
 		}
 
+		void setBoard() {
+			actualBoard = { {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} };
+			moveCount = 0;
+		}
+
 		int computerMove()
 		{
 			int coordinates, x, y, bnum;
@@ -1350,6 +1355,7 @@ public:
 					convertSrikurToSidharth(srikurReturn);
 				}
 				if (turn == sidharth) {
+					Sidharth::TicTacToeBoard3D::printBoard();
 					sidReturn = Sidharth::TicTacToeBoard3D::computerMove();
 					convertSidharthToSrikur(sidReturn);
 				}
@@ -1374,6 +1380,7 @@ public:
 				turn = !turn;
 			}
 			games++
+			turn = rand()%2
 		}
 	}
 
