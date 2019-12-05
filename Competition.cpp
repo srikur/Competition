@@ -1334,6 +1334,7 @@ public:
 
 	void playGame() {
 		setMove(0);
+		Srikur::setupBoard();
 		printf("This program will play 10 games of 3D Tic-Tac-Toe between Srikur Kanuparthy and Sidharth Sundar\n");
 		srand(time(NULL));
 		int first = rand() % 2;
@@ -1373,7 +1374,7 @@ public:
 				}
 				turn = !turn;
 			}
-			games++
+			games++;
 		}
 	}
 
