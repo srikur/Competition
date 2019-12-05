@@ -1307,12 +1307,14 @@ namespace Sidharth
 
 
 			if (playerCount > computerCount) {
-				return srikur
+				return srikur;
 			}
 			else if (computerCount > playerCount) {
 				return sidharth;
 			}
-
+			else {
+				return -1;
+			}
 		}
 
 	};
@@ -1341,21 +1343,37 @@ public:
 		}
 
 		while (games <= 10) {
-			if (turn == srikur) {
-				Srikur::ThreeDBoard::printCompetitionBoard();
-				srikurReturn = Srikur::ThreeDBoard::computerMove();
-				convertSrikurToSidharth(srikurReturn);
-			}
-			if (turn == sidharth) {
-				sidReturn = Sidharth::TicTacToeBoard3D::computerMove();
-				convertSidharthToSrikur(sidReturn);
-			}
+			while (true) {
+				if (turn == srikur) {
+					Srikur::ThreeDBoard::printCompetitionBoard();
+					srikurReturn = Srikur::ThreeDBoard::computerMove();
+					convertSrikurToSidharth(srikurReturn);
+				}
+				if (turn == sidharth) {
+					sidReturn = Sidharth::TicTacToeBoard3D::computerMove();
+					convertSidharthToSrikur(sidReturn);
+				}
 
-			// Check end using both the boards
-			Srikur::ThreeDBoard::checkWinner();
-			Srikur::ThreeDBoard::checkEnd();
-
-			turn = !turn;
+				// Check end using both the boards
+				int winner;
+				if (Sidharth::TicTacToeBoard3D::getMoveCount() == 27) {
+					winner = Sidharth::TicTacToeBoard3D::gameComplete();
+				}
+				if (winner == srikur) {
+					srikurGames++;
+					break;
+				}
+				else if (winner == sidharth) {
+					sidharthGames++;
+					break;
+				}
+				else {
+					//it's a tie
+					break;
+				}
+				turn = !turn;
+			}
+			games++
 		}
 	}
 
