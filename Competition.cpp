@@ -626,7 +626,7 @@ namespace Sidharth
 			return getMove();
 		}
 
-		void computerMove()
+		int computerMove()
 		{
 			int coordinates, x, y, bnum;
 			while (true)
@@ -681,6 +681,7 @@ namespace Sidharth
 			y = coordinates % 3;
 			x = (int)(coordinates - y) / 3;
 			actualBoard[bnum][x][y] = -1;
+			return bnum * 9 + coordinates + 1;
 		}
 
 		void printActual()
