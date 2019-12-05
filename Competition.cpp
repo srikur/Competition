@@ -111,8 +111,6 @@ namespace Srikur {
 		cout << "\nThe computer chose space " << compMove << "\n";
 		competitionBoard.fillSlot(compPoint, 2);
 
-		competitionBoard.printCompetitionBoard();
-
 		return compMove;
 	}
 
@@ -311,8 +309,6 @@ namespace Srikur {
 		}
 		return false;
 	}
-
-
 }
 
 namespace Sidharth
