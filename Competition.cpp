@@ -4,6 +4,7 @@
 	Description: This program is a 3D Tic Tac Toe Board
 
 	Kanuparthy Srikur, Section 01, 11/1/19, First Semester 2019-2020 School Year
+	Sidharth Sundar, Section 02, 12/5/19, First Semester 2019-2020 School Year
 */
 
 #define srikur 0
@@ -1306,11 +1307,12 @@ public:
 
 	void convertSrikurToSidharth(int value) {
 		value--;
+		int y = value % 3;
+		value -= y;
+		value /= 3;
+		int x = value % 3;
+		value -= x;
 		int boardNumber = value / 3;
-		value -= 9 * boardNumber;
-		int x = value / 3;
-		value -= 3 * x;
-		int y = value;
 		playerMove(boardNumber + 1, x, y);
 	}
 
