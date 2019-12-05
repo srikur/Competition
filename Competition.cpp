@@ -1363,7 +1363,14 @@ public:
 	}
 
 	void convertSrikurToSidharth(int value) {
-
+		value--;
+		int boardNumber = value / 3;
+		value -= 9 * x;
+		int x = value / 3;
+		value -= 3 * y;
+		int y = value;
+		playerMove(boardNumber + 1, x, y);
+		
 	}
 
 	void convertSidharthToSrikur() {
