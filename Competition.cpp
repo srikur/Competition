@@ -6,6 +6,9 @@
 	Kanuparthy Srikur, Section 01, 11/1/19, First Semester 2019-2020 School Year
 */
 
+#define srikur 0
+#define sidharth 1
+
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -1330,9 +1333,6 @@ namespace Sidharth
 
 }
 
-#define srikur 0
-#define sidharth 1
-
 int srikurReturn, sidReturn, compGame;
 
 class Competition : Srikur::ThreeDBoard, Sidharth::TicTacToeBoard3D {
@@ -1341,6 +1341,8 @@ public:
 	const int NUM_GAMES = 10;
 	bool turn = srikur;
 	int games;
+
+	int sidharthGames = 0, srikurGames = 0;
 
 	void playGame() {
 		printf("This program will play 10 games of 3D Tic-Tac-Toe between Srikur Kanuparthy and Sidharth Sundar\n");
