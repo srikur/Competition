@@ -695,7 +695,7 @@ namespace Sidharth
 			}
 		}
 
-		void gameComplete()
+		int gameComplete()
 		{
 			//base class gameComplete() method returned a boolean, and we need a count, so I'm just completely overhauling the method.
 
@@ -1306,18 +1306,11 @@ namespace Sidharth
 			}
 
 
-			cout << "The player got " << playerCount << " 3-in-a-rows, and the computer got " << computerCount << " 3-in-a-rows." << endl;
-			if (playerCount > computerCount)
-			{
-				cout << "Player Wins!";
+			if (playerCount > computerCount) {
+				return srikur
 			}
-			else if (playerCount < computerCount)
-			{
-				cout << "Computer Wins!";
-			}
-			else
-			{
-				cout << "It's a tie!";
+			else if (computerCount > playerCount) {
+				return sidharth;
 			}
 
 		}
@@ -1338,6 +1331,7 @@ public:
 	int sidharthGames = 0, srikurGames = 0;
 
 	void playGame() {
+		setMove(0);
 		printf("This program will play 10 games of 3D Tic-Tac-Toe between Srikur Kanuparthy and Sidharth Sundar\n");
 		srand(time(NULL));
 		int first = rand() % 2;
