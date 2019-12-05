@@ -1365,9 +1365,9 @@ public:
 	void convertSrikurToSidharth(int value) {
 		value--;
 		int boardNumber = value / 3;
-		value -= 9 * x;
+		value -= 9 * boardNumber;
 		int x = value / 3;
-		value -= 3 * y;
+		value -= 3 * x;
 		int y = value;
 		playerMove(boardNumber + 1, x, y);
 		
