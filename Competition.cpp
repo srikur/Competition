@@ -1352,7 +1352,8 @@ public:
 			}
 
 			// Check end using both the boards
-			
+			Srikur::ThreeDBoard::checkWinner();
+			Srikur::ThreeDBoard::checkEnd();
 
 			turn = !turn;
 		}
