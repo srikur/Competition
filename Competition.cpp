@@ -1350,20 +1350,23 @@ public:
 		}
 
 		while (games <= 10) {
-			if (turn == srikur) {
-				Srikur::ThreeDBoard::printCompetitionBoard();
-				srikurReturn = Srikur::ThreeDBoard::computerMove();
-				convertSrikurToSidharth(srikurReturn);
-			}
-			if (turn == sidharth) {
-				sidReturn = Sidharth::TicTacToeBoard3D::computerMove();
-				convertSidharthToSrikur(sidReturn);
-			}
+			while (true) {
+				if (turn == srikur) {
+					Srikur::ThreeDBoard::printCompetitionBoard();
+					srikurReturn = Srikur::ThreeDBoard::computerMove();
+					convertSrikurToSidharth(srikurReturn);
+				}
+				if (turn == sidharth) {
+					sidReturn = Sidharth::TicTacToeBoard3D::computerMove();
+					convertSidharthToSrikur(sidReturn);
+				}
 
-			// Check end using both the boards
-			
+				// Check end using both the boards
 
-			turn = !turn;
+
+				turn = !turn;
+			}
+			games++;
 		}
 	}
 
