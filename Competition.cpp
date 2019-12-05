@@ -34,13 +34,7 @@ namespace Srikur {
 
 		void fillSlot(Slot* move, int player) {
 			string character;
-			if (player == 1) {
-				character = "X";
-			}
-			else {
-				character = "O";
-			}
-
+			character = "O";
 			move->value = character;
 		}
 
@@ -48,7 +42,7 @@ namespace Srikur {
 
 		bool checkEnd();
 		void printBoard();
-		void checkWinner();
+		int checkWinner();
 
 		int computerMove();
 		void printCompetitionBoard();
@@ -269,17 +263,17 @@ namespace Srikur {
 
 
 	//algorithms to check for winner
-	void Board::checkWinner() {
+	int Board::checkWinner() {
 
 		//Checks horizontal for each vertical panes
 		for (int j = 0; j < 19; j += 9) {
 			for (int i = 0; i < 7; i += 3) {
 				if (board.spaces[i + j].value == (board.spaces[i + 1 + j].value) && board.spaces[i + j].value == (board.spaces[i + 2 + j].value)) {
-					if (board.spaces[i + j].value == ("X")) {
-						playerWins++;
+					if (board.spaces[i + j].value == ("O")) {
+						return srikur;
 					}
 					else {
-						computerWins++;
+						return sidharth;
 					}
 				}
 			}
@@ -287,11 +281,11 @@ namespace Srikur {
 		//Checks right diagonal for each vertical pane
 		for (int i = 0; i < 19; i += 9) {
 			if (board.spaces[i].value == (board.spaces[i + 4].value) && board.spaces[i].value == (board.spaces[i + 8].value)) {
-				if (board.spaces[i].value == ("X")) {
-					playerWins++;
+				if (board.spaces[i].value == ("O")) {
+					return srikur;
 				}
 				else {
-					computerWins++;
+					return sidharth;
 				}
 			}
 		}
@@ -299,11 +293,11 @@ namespace Srikur {
 		//checks right diagonal for each horizontal pane
 		for (int i = 0; i < 7; i += 3) {
 			if (board.spaces[i].value == (board.spaces[i + 10].value) && board.spaces[i].value == (board.spaces[i + 20].value)) {
-				if (board.spaces[i].value == ("X")) {
-					playerWins++;
+				if (board.spaces[i].value == ("O")) {
+					return srikur;
 				}
 				else {
-					computerWins++;
+					return sidharth;
 				}
 			}
 		}
@@ -311,12 +305,11 @@ namespace Srikur {
 		//checks left diagonal for each horizontal pane
 		for (int i = 2; i < 9; i += 3) {
 			if (board.spaces[i].value == (board.spaces[i + 8].value) && board.spaces[i].value == (board.spaces[i + 16].value)) {
-				if (board.spaces[i].value == ("X")) {
-					playerWins++;
+				if (board.spaces[i].value == ("O")) {
+					return srikur;
 				}
 				else {
-					computerWins++;
-
+					return sidharth;
 				}
 			}
 		}
@@ -325,11 +318,11 @@ namespace Srikur {
 		//Checks left diagonal for each vertical pane
 		for (int i = 2; i < 21; i += 9) {
 			if (board.spaces[i].value == (board.spaces[i + 2].value) && board.spaces[i].value == (board.spaces[i + 4].value)) {
-				if (board.spaces[i].value == ("X")) {
-					playerWins++;
+				if (board.spaces[i].value == ("O")) {
+					return srikur;
 				}
 				else {
-					computerWins++;
+					return sidharth;
 				}
 			}
 		}
@@ -337,11 +330,11 @@ namespace Srikur {
 		for (int j = 0; j < 19; j += 9) {
 			for (int i = 0; i < 3; i++) {
 				if (board.spaces[i + j].value == (board.spaces[i + 3 + j].value) && board.spaces[i + j].value == (board.spaces[i + 6 + j].value)) {
-					if (board.spaces[i + j].value == ("X")) {
-						playerWins++;
+					if (board.spaces[i + j].value == ("O")) {
+						return srikur;
 					}
 					else {
-						computerWins++;
+						return sidharth;
 					}
 				}
 			}
@@ -350,11 +343,11 @@ namespace Srikur {
 		for (int j = 0; j < 7; j += 3) {
 			for (int i = 0; i < 3; i++) {
 				if (board.spaces[i + j].value == (board.spaces[i + 9 + j].value) && board.spaces[i + j].value == (board.spaces[i + 18 + j].value)) {
-					if (board.spaces[i + j].value == ("X")) {
-						playerWins++;
+					if (board.spaces[i + j].value == ("O")) {
+						return srikur;
 					}
 					else {
-						computerWins++;
+						return sidharth;
 					}
 				}
 			}
@@ -362,38 +355,38 @@ namespace Srikur {
 
 		//check four diagonals that go through the center
 		if (board.spaces[0].value == (board.spaces[13].value) && board.spaces[0].value == (board.spaces[26].value)) {
-			if (board.spaces[0].value == ("X")) {
-				playerWins++;
+			if (board.spaces[0].value == ("O")) {
+				return srikur;
 			}
 			else {
-				computerWins++;
+				return sidharth;
 			}
 		}
 
 		if (board.spaces[3].value == (board.spaces[13].value) && board.spaces[3].value == (board.spaces[24].value)) {
-			if (board.spaces[3].value == ("X")) {
-				playerWins++;
+			if (board.spaces[3].value == ("O")) {
+				return srikur;
 			}
 			else {
-				computerWins++;
+				return sidharth;
 			}
 		}
 
 		if (board.spaces[20].value == (board.spaces[13].value) && board.spaces[20].value == (board.spaces[6].value)) {
-			if (board.spaces[20].value == ("X")) {
-				playerWins++;
+			if (board.spaces[20].value == ("O")) {
+				return srikur;
 			}
 			else {
-				computerWins++;
+				return sidharth;
 			}
 		}
 
 		if (board.spaces[18].value == (board.spaces[13].value) && board.spaces[18].value == (board.spaces[8].value)) {
-			if (board.spaces[18].value == ("X")) {
-				playerWins++;
+			if (board.spaces[18].value == ("O")) {
+				return srikur;
 			}
 			else {
-				computerWins++;
+				return sidharth;
 			}
 		}
 	}
@@ -1314,7 +1307,7 @@ namespace Sidharth
 
 
 			if (playerCount > computerCount) {
-				return srikur;
+				return srikur
 			}
 			else if (computerCount > playerCount) {
 				return sidharth;
@@ -1326,7 +1319,7 @@ namespace Sidharth
 
 }
 
-int srikurReturn, sidReturn, compGame;
+int srikurReturn, sidReturn;
 
 class Competition : Srikur::ThreeDBoard, Sidharth::TicTacToeBoard3D {
 public:
@@ -1342,34 +1335,27 @@ public:
 		printf("This program will play 10 games of 3D Tic-Tac-Toe between Srikur Kanuparthy and Sidharth Sundar\n");
 		srand(time(NULL));
 		int first = rand() % 2;
-		compGame = 1;
 		if (first) {
 			//Sidharth moves first since the value is zero
 			turn = sidharth;
-			compGame = 2;
 		}
 
 		while (games <= 10) {
-			while (true) {
-				if (turn == srikur) {
-					Srikur::ThreeDBoard::printCompetitionBoard();
-					srikurReturn = Srikur::ThreeDBoard::computerMove();
-					convertSrikurToSidharth(srikurReturn);
-				}
-				if (turn == sidharth) {
-					sidReturn = Sidharth::TicTacToeBoard3D::computerMove();
-					convertSidharthToSrikur(sidReturn);
-				}
-
-				// Check end using both the boards
-				if getMoveCount() == 27 {
-					bool sidGameCheck = gameComplete();
-				}
-
-
-				turn = !turn;
+			if (turn == srikur) {
+				Srikur::ThreeDBoard::printCompetitionBoard();
+				srikurReturn = Srikur::ThreeDBoard::computerMove();
+				convertSrikurToSidharth(srikurReturn);
 			}
-			games++;
+			if (turn == sidharth) {
+				sidReturn = Sidharth::TicTacToeBoard3D::computerMove();
+				convertSidharthToSrikur(sidReturn);
+			}
+
+			// Check end using both the boards
+			Srikur::ThreeDBoard::checkWinner();
+			Srikur::ThreeDBoard::checkEnd();
+
+			turn = !turn;
 		}
 	}
 
@@ -1384,7 +1370,7 @@ public:
 	}
 
 	inline void convertSidharthToSrikur(int value) {
-		Srikur::competitionBoard.fillSlot(&Srikur::competitionBoard.spaces[value - 1], compGame);
+		Srikur::competitionBoard.fillSlot(&Srikur::competitionBoard.spaces[value - 1], 1);
 	}
 
 };
