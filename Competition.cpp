@@ -1400,7 +1400,6 @@ public:
 			games++;
 			turn = rand() % 2;
 			Sidharth::TicTacToeBoard3D::setBoard();
-			Srikur::ThreeDBoard::setUp
 		}
 	}
 
